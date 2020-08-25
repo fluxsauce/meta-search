@@ -1,0 +1,65 @@
+{
+  "name": "meta-search",
+  "version": "1.0.0",
+  "description": "Search code and packages managed with meta",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "bin": {
+    "meta-search": "./bin/meta-search"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fluxsauce/meta-search.git"
+  },
+  "keywords": [
+    "meta",
+    "git",
+    "search",
+    "package.json",
+    "console"
+  ],
+  "author": "Jon Peck <jpeck@fluxsauce.com>",
+  "contributors": [],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fluxsauce/meta-search/issues"
+  },
+  "homepage": "https://github.com/fluxsauce/meta-search#readme",
+  "engines": {
+    "node": ">=8"
+  },
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "commander": "^6.0.0",
+    "lodash": "^4.17.20",
+    "semver": "^7.3.2",
+    "table": "^5.4.6"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jest": "^23.13.1",
+    "jest": "^25.5.4",
+    "package-json-validator": "^0.6.3"
+  },
+  "eslintConfig": {
+    "env": {
+      "jest": true
+    },
+    "extends": [
+      "airbnb-base",
+      "plugin:jest/recommended"
+    ],
+    "plugins": [
+      "jest"
+    ]
+  },
+  "jest": {
+    "coverageThreshold": {
+      "global": {}
+    }
+  }
+}

@@ -1,0 +1,85 @@
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: Node.js
+
+on: push
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-18.04
+
+    strategy:
+      matrix:
+        node-version: [8.x, 10.x, 12.x, 14.x]
+
+    steps:
+      # https://github.com/actions/checkout
+      - uses: actions/checkout@v2
+
+      # https://github.com/actions/setup-node
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # https://github.com/actions/cache
+      - uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install
+        run: npm ci
+
+      - name: Test
+        run: npm test
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-18.04
+    needs: test
+
+    strategy:
+      matrix:
+        node-version: [8.x, 10.x, 12.x, 14.x]
+
+    steps:
+      # https://github.com/actions/checkout
+      - uses: actions/checkout@v2
+
+      # https://github.com/actions/setup-node
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # https://github.com/actions/cache
+      - uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint package.json
+        run: npx pjv -w -r
+
+      - name: ESLint
+        run: npx eslint --output-file eslint_report.json --format json .
+        continue-on-error: true
+
+      - name: Annotate ESLint
+        uses: ataylorme/eslint-annotate-action@1.1.1
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          report-json: "eslint_report.json"
+
+      - name: Upload ESLint report
+        uses: actions/upload-artifact@v1
+        with:
+          name: eslint_report.json
+          path: eslint_report.json
