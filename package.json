@@ -1,6 +1,6 @@
 {
   "name": "meta-search",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Search code and packages managed with meta",
   "main": "index.js",
   "scripts": {
