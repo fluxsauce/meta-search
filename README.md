@@ -1,6 +1,17 @@
 # meta-search
 
-Search code and packages managed with [meta](https://github.com/mateodelnorte/meta).
+Search code and Node.js packages managed with [meta](https://github.com/mateodelnorte/meta).
+
+## Examples
+
+Search all meta project `package.json` files for a published package:
+
+![](images/package-search.png?raw=true)
+
+Search all meta project `package.json` files for an internal project with a manually specified minimum
+semantic version, excluding satisfied projects:
+
+![](images/package-search-minimum.png?raw=true)
 
 ## Usage
 
